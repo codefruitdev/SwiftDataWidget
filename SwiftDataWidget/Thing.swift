@@ -6,3 +6,16 @@
 //
 
 import Foundation
+import SwiftData
+
+@Model
+class Thing {
+    var id: UUID = UUID()
+    var name: String
+    var count: Int = 1
+    
+    init(name: String, count: Int) {
+        self.name = name
+        self.count = count
+    }
+}
