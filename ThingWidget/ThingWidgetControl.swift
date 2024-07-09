@@ -8,6 +8,7 @@
 import AppIntents
 import SwiftUI
 import WidgetKit
+import SwiftData
 
 struct ThingWidgetControl: ControlWidget {
     static let kind: String = "codefruit.SwiftDataWidget.ThingWidget"
@@ -17,62 +18,35 @@ struct ThingWidgetControl: ControlWidget {
             kind: Self.kind,
             provider: Provider()
         ) { value in
-            ControlWidgetToggle(
-                "Start Timer",
-                isOn: value.isRunning,
-                action: StartTimerIntent(value.name),
-                valueLabel: { isRunning in
-                    Label(isRunning ? "On" : "Off", systemImage: "timer")
-                }
-            )
+            ControlWidgetButton(action: CountIntent(count: 1)) {
+                Label("Increase", systemImage: "11.circle")
+            }
         }
-        .displayName("Timer")
-        .description("A an example control that runs a timer.")
+        .displayName("Plus Button")
+        .description("Increase Thing Count")
     }
 }
 
 extension ThingWidgetControl {
     struct Value {
-        var isRunning: Bool
-        var name: String
+        var count: Int
     }
 
     struct Provider: AppIntentControlValueProvider {
-        func previewValue(configuration: TimerConfiguration) -> Value {
-            ThingWidgetControl.Value(isRunning: false, name: configuration.timerName)
+        func previewValue(configuration: plusButtonConfiguration) -> Value {
+            ThingWidgetControl.Value(count: 1)
         }
 
-        func currentValue(configuration: TimerConfiguration) async throws -> Value {
-            let isRunning = true // Check if the timer is running
-            return ThingWidgetControl.Value(isRunning: isRunning, name: configuration.timerName)
+        func currentValue(configuration: plusButtonConfiguration) async throws -> Value {
+            let count = 1 // Check if the timer is running
+            return ThingWidgetControl.Value(count: count)
         }
     }
 }
 
-struct TimerConfiguration: ControlConfigurationIntent {
-    static var title: LocalizedStringResource { "Timer Name Configuration" }
+struct plusButtonConfiguration: ControlConfigurationIntent {
+    static var title: LocalizedStringResource { "Plus Button Configuration" }
 
-    @Parameter(title: "Timer Name")
-    var timerName: String
-}
-
-struct StartTimerIntent: SetValueIntent {
-    static var title: LocalizedStringResource { "Start a timer" }
-
-    @Parameter(title: "Timer Name")
-    var name: String
-
-    @Parameter(title: "Timer is running")
-    var value: Bool
-
-    init() {}
-
-    init(_ name: String) {
-        self.name = name
-    }
-
-    func perform() async throws -> some IntentResult {
-        // Start the timer…
-        return .result()
-    }
+    @Parameter(title: "Plus Button")
+    var count: Int?
 }

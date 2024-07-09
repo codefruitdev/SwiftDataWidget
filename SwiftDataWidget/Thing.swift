@@ -19,3 +19,9 @@ class Thing {
         self.count = count
     }
 }
+
+extension Thing {
+    static var previewThing: Thing {
+        Thing(name: "Thing 1", count: 1)
+    }
+}
