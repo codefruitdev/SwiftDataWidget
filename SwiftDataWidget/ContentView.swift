@@ -13,6 +13,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var things: [Thing]
     @Environment(\.scenePhase) private var phase
+    @State private var updatedThings: [PersistentIdentifier] = []
     
     var body: some View {
         
@@ -79,13 +80,36 @@ struct ContentView: View {
                 }
             }
             .onChange(of: phase) {
-                  WidgetCenter.shared.reloadAllTimelines()
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+            .onChange(of: phase) { _, newValue in
+                Task {
+                    if newValue == .active {
+                        let updatedThings = await DataModel.shared.findUpdatedThingsWithCounts()
+                        for (index, thing) in things.enumerated() {
+                            if let updatedThing = updatedThings.first(where: { $0.persistentModelID == thing.persistentModelID }) {
+                                UpdateThing(things[index], updatedThing)
+                                print("yes")
+                            } else {
+                                print("no")
+                            }
+                        }
+                        WidgetCenter.shared.reloadAllTimelines()
+                    } else {
+                        // Persist the unread trip names for the next launch session.
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }
                 }
+            }
         }
     }
     
     private func NewThing(_ thing: Thing) {
         modelContext.insert(thing)
+    }
+    
+    private func UpdateThing(_ thing: Thing, _ newThing: Thing) {
+        thing.count = newThing.count
     }
 }
 
