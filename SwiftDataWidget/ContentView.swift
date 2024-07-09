@@ -31,6 +31,9 @@ struct ContentView: View {
                                 if thing.count >= 1 {
                                     thing.count -= 1
                                     WidgetCenter.shared.reloadAllTimelines()
+                                    ControlCenter.shared.reloadControls(
+                                        ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"
+                                    )
                                 }
                             }
                         }, label: {
@@ -82,6 +85,9 @@ struct ContentView: View {
             }
             .onChange(of: phase) {
                 WidgetCenter.shared.reloadAllTimelines()
+                ControlCenter.shared.reloadControls(
+                    ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"
+                )
             }
             .onChange(of: phase) { _, newValue in
                 Task {

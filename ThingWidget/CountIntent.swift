@@ -7,6 +7,8 @@
 
 import AppIntents
 import SwiftData
+import WidgetKit
+
 
 struct CountIntent: AppIntent {
     static var title: LocalizedStringResource {
@@ -37,6 +39,9 @@ struct CountIntent: AppIntent {
         do {
             if thing.count < 50 {
                 thing.count += 1
+                ControlCenter.shared.reloadControls(
+                    ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"
+                )
             }
             try modelContext.save()
         } catch {

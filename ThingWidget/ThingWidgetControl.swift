@@ -11,15 +11,14 @@ import WidgetKit
 import SwiftData
 
 struct ThingWidgetControl: ControlWidget {
-    static let kind: String = "codefruit.SwiftDataWidget.ThingWidget"
+    static let kind: String = "codefruit.SwiftDataWidget.ThingWidgetControl"
 
     var body: some ControlWidgetConfiguration {
-        AppIntentControlConfiguration(
-            kind: Self.kind,
-            provider: Provider()
-        ) { value in
-            ControlWidgetButton(action: CountIntent(count: 1)) {
-                Label("Increase", systemImage: "11.circle")
+        StaticControlConfiguration(
+            kind: Self.kind
+        ) {
+            ControlWidgetButton(action: CountIntent(count: CountProvider().currentValue())) {
+                Label("\(CountProvider().currentValue()) Things", systemImage: "chevron.up")
             }
         }
         .displayName("Plus Button")
@@ -27,26 +26,32 @@ struct ThingWidgetControl: ControlWidget {
     }
 }
 
-extension ThingWidgetControl {
-    struct Value {
-        var count: Int
-    }
-
-    struct Provider: AppIntentControlValueProvider {
-        func previewValue(configuration: plusButtonConfiguration) -> Value {
-            ThingWidgetControl.Value(count: 1)
-        }
-
-        func currentValue(configuration: plusButtonConfiguration) async throws -> Value {
-            let count = 1 // Check if the timer is running
-            return ThingWidgetControl.Value(count: count)
+struct CountProvider: ControlValueProvider {
+    
+    var previewValue: Int { 0 }
+    
+    private let modelContainer: ModelContainer
+    
+    init() {
+        do {
+            modelContainer = try ModelContainer(for: Thing.self)
+        } catch {
+            fatalError("Failed to create the model container: \(error)")
         }
     }
-}
-
-struct plusButtonConfiguration: ControlConfigurationIntent {
-    static var title: LocalizedStringResource { "Plus Button Configuration" }
-
-    @Parameter(title: "Plus Button")
-    var count: Int?
+    
+    func currentValue() -> Int {
+        var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Thing.count, order: .forward)])
+        fetchDescriptor.predicate = #Predicate { $0.count >= 0 }
+        let modelContext = ModelContext(DataModel.shared.modelContainer)
+        
+        if let things = try? modelContext.fetch(fetchDescriptor) {
+            if let thing = things.first {
+                let value = Thing(name: thing.name, count: thing.count)
+                WidgetCenter.shared.reloadAllTimelines()
+                return value.count
+            }
+        }
+        return 0
+    }
 }
