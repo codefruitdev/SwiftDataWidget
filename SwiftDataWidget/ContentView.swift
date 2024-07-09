@@ -76,6 +76,7 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .disabled(things.count >= 1)
                     
                 }
             }

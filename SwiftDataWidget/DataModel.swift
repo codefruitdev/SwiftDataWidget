@@ -30,8 +30,29 @@ actor DataModel {
 extension DataModel {
     
     struct UserDefaultsKey {
-        static let updatedThings = "updatedThings"
         static let historyToken = "historyToken"
+    }
+    
+    func findUpdatedThingsWithCounts() -> [Thing] {
+        let updatedThings = findUpdatedThings()
+        return Array(updatedThings)
+    }
+    
+    private func findUpdatedThings() -> Set<Thing> {
+        let tokenData = UserDefaults.standard.data(forKey: UserDefaultsKey.historyToken)
+        
+        var historyToken: DefaultHistoryToken? = nil
+        if let tokenData {
+            historyToken = try? JSONDecoder().decode(DefaultHistoryToken.self, from: tokenData)
+        }
+        let transactions = findTransactions(after: historyToken, author: TransactionAuthor.widget)
+        let (updatedThings, newToken) = findThings(in: transactions)
+        
+        if let newToken {
+            let newTokenData = try? JSONEncoder().encode(newToken)
+            UserDefaults.standard.set(newTokenData, forKey: UserDefaultsKey.historyToken)
+        }
+        return updatedThings
     }
     
     private func findTransactions(after token: DefaultHistoryToken?, author: String) -> [DefaultHistoryTransaction] {
@@ -81,27 +102,5 @@ extension DataModel {
             }
         }
         return (resultThings, transactions.last?.token)
-    }
-    
-    private func findUpdatedThings() -> Set<Thing> {
-        let tokenData = UserDefaults.standard.data(forKey: UserDefaultsKey.historyToken)
-        
-        var historyToken: DefaultHistoryToken? = nil
-        if let tokenData {
-            historyToken = try? JSONDecoder().decode(DefaultHistoryToken.self, from: tokenData)
-        }
-        let transactions = findTransactions(after: historyToken, author: TransactionAuthor.widget)
-        let (updatedThings, newToken) = findThings(in: transactions)
-        
-        if let newToken {
-            let newTokenData = try? JSONEncoder().encode(newToken)
-            UserDefaults.standard.set(newTokenData, forKey: UserDefaultsKey.historyToken)
-        }
-        return updatedThings
-    }
-    
-    func findUpdatedThingsWithCounts() -> [Thing] {
-        let updatedThings = findUpdatedThings()
-        return Array(updatedThings)
     }
 }
