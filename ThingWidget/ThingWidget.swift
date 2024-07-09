@@ -84,18 +84,12 @@ struct ThingWidgetEntryView : View {
     var body: some View {
         HStack {
             // Minus Button
-            Button(action: {
-                withAnimation {
-                    if entry.count >= 1 {
-
-                    }
-                }
-            }, label: {
+            Button(intent: MinusIntent(count: entry.count)) {
                 Image(systemName: "minus")
                     .font(.title.bold())
                     .frame(width: 15, height: 15)
                     .foregroundStyle(Color.pink)
-            })
+            }
             .buttonRepeatBehavior(.enabled)
             
             Text("\(entry.count)")

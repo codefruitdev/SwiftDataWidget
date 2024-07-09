@@ -8,9 +8,9 @@
 import AppIntents
 import SwiftData
 
-struct CountIntent: AppIntent {
+struct MinusIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Count Intent")
+        LocalizedStringResource("Minus")
     }
     
     @Parameter(title: "Thing Count")
@@ -35,8 +35,8 @@ struct CountIntent: AppIntent {
             return .result()
         }
         do {
-            if thing.count < 50 {
-                thing.count += 1
+            if thing.count > 0 {
+                thing.count -= 1
             }
             try modelContext.save()
         } catch {

@@ -23,6 +23,8 @@
 		810F5EE52C3C85FD001AD056 /* ThingWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 810F5ED12C3C85FC001AD056 /* ThingWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		813D16DF2C3C9181005E58A1 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EC92C3C78C3001AD056 /* Thing.swift */; };
 		813D16E02C3C92F6005E58A1 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5ECB2C3C8371001AD056 /* DataModel.swift */; };
+		81FE4B232C3CDBD80085360E /* MinusIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4B222C3CDBD80085360E /* MinusIntent.swift */; };
+		81FE4B242C3CDBD80085360E /* MinusIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4B222C3CDBD80085360E /* MinusIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,7 @@
 		810F5EE22C3C85FD001AD056 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		810F5EEA2C3C862E001AD056 /* SwiftDataWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDataWidget.entitlements; sourceTree = "<group>"; };
 		810F5EEB2C3C864E001AD056 /* ThingWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThingWidgetExtension.entitlements; sourceTree = SOURCE_ROOT; };
+		81FE4B222C3CDBD80085360E /* MinusIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinusIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,7 @@
 				810F5EDA2C3C85FC001AD056 /* ThingWidgetControl.swift */,
 				810F5EDC2C3C85FC001AD056 /* ThingWidget.swift */,
 				810F5EDE2C3C85FC001AD056 /* CountIntent.swift */,
+				81FE4B222C3CDBD80085360E /* MinusIntent.swift */,
 				810F5EE02C3C85FD001AD056 /* Assets.xcassets */,
 				810F5EE22C3C85FD001AD056 /* Info.plist */,
 			);
@@ -259,6 +263,7 @@
 				810F5ECC2C3C8371001AD056 /* DataModel.swift in Sources */,
 				810F5ECA2C3C78C3001AD056 /* Thing.swift in Sources */,
 				810F5EBC2C3C4F8C001AD056 /* SwiftDataWidgetApp.swift in Sources */,
+				81FE4B242C3CDBD80085360E /* MinusIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81FE4B232C3CDBD80085360E /* MinusIntent.swift in Sources */,
 				810F5EDB2C3C85FC001AD056 /* ThingWidgetControl.swift in Sources */,
 				810F5EDF2C3C85FC001AD056 /* CountIntent.swift in Sources */,
 				810F5ED92C3C85FC001AD056 /* ThingWidgetBundle.swift in Sources */,
