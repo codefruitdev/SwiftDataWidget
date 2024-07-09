@@ -7,82 +7,119 @@
 
 import WidgetKit
 import SwiftUI
-
-struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
-    }
-
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
-    }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
-        return Timeline(entries: entries, policy: .atEnd)
-    }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
-}
-
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let configuration: ConfigurationAppIntent
-}
-
-struct ThingWidgetEntryView : View {
-    var entry: Provider.Entry
-
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-        }
-    }
-}
+import SwiftData
 
 struct ThingWidget: Widget {
     let kind: String = "ThingWidget"
 
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
             ThingWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
+        .configurationDisplayName("Things")
+        .description("Count your Things")
     }
 }
 
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
+struct Provider: TimelineProvider {
+    private let modelContainer: ModelContainer
+    
+    init() {
+        do {
+            modelContainer = try ModelContainer(for: Thing.self)
+        } catch {
+            fatalError("Failed to create the model container: \(error)")
+        }
     }
     
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
+    func placeholder(in context: Context) -> SimpleEntry {
+        return SimpleEntry.placeholderEntry
+    }
+
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
+        completion(SimpleEntry.placeholderEntry)
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+        var fetchDescriptor = FetchDescriptor(sortBy: [SortDescriptor(\Thing.count, order: .forward)])
+        fetchDescriptor.predicate = #Predicate { $0.count >= 0 }
+        let modelContext = ModelContext(DataModel.shared.modelContainer)
+        
+        if let things = try? modelContext.fetch(fetchDescriptor) {
+            if let thing = things.first {
+                let newEntry = SimpleEntry(date: .now, count: thing.count)
+                let timeline = Timeline(entries: [newEntry], policy: .never)
+                completion(timeline)
+                return
+            }
+        }
+        /**
+         Return "No Trips" entry with `.never` policy when there is no upcoming trip.
+         The main app triggers a widget update when adding a new trip.
+         */
+        let newEntry = SimpleEntry(date: .now, count: 1)
+        let timeline = Timeline(entries: [newEntry], policy: .never)
+        completion(timeline)
+    }
+}
+
+struct SimpleEntry: TimelineEntry {
+    let date: Date
+    let count: Int
+    
+    static var placeholderEntry: SimpleEntry {
+        let now = Date()
+        return SimpleEntry(date: now, count: 1)
+    }
+}
+
+struct ThingWidgetEntryView : View {
+    var entry: Provider.Entry
+    
+    var linearGradient: LinearGradient {
+        LinearGradient(colors: [.clear, .primary.opacity(0.3), .clear], startPoint: .topLeading, endPoint: .bottomTrailing)
+    }
+
+    var body: some View {
+        HStack {
+            // Minus Button
+            Button(action: {
+                withAnimation {
+                    if entry.count >= 1 {
+
+                    }
+                }
+            }, label: {
+                Image(systemName: "minus")
+                    .font(.title.bold())
+                    .frame(width: 15, height: 15)
+                    .foregroundStyle(Color.pink)
+            })
+            .buttonRepeatBehavior(.enabled)
+            
+            Text("\(entry.count)")
+                .font(.system(.title).bold())
+                .frame(width: 45, height: 45)
+                .contentTransition(.numericText())
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10).strokeBorder(linearGradient).fill(.secondary.opacity(0.15))
+                )
+            
+            // Plus Button
+            Button(intent: CountIntent(count: entry.count)) {
+                Image(systemName: "plus")
+                    .font(.title.bold())
+                    .frame(width: 15, height: 15)
+                    .foregroundStyle(Color.accentColor)
+            }
+            .buttonRepeatBehavior(.enabled)
+        }
     }
 }
 
 #Preview(as: .systemSmall) {
     ThingWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, count: 1)
 }

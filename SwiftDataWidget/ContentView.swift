@@ -7,10 +7,12 @@
 
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var things: [Thing]
+    @Environment(\.scenePhase) private var phase
     
     var body: some View {
         
@@ -27,6 +29,7 @@ struct ContentView: View {
                             withAnimation {
                                 if thing.count >= 1 {
                                     thing.count -= 1
+                                    WidgetCenter.shared.reloadAllTimelines()
                                 }
                             }
                         }, label: {
@@ -50,6 +53,7 @@ struct ContentView: View {
                             withAnimation {
                                 if thing.count < 50 {
                                     thing.count += 1
+                                    WidgetCenter.shared.reloadAllTimelines()
                                 }
                             }
                         }, label: {
@@ -74,6 +78,9 @@ struct ContentView: View {
                     
                 }
             }
+            .onChange(of: phase) {
+                  WidgetCenter.shared.reloadAllTimelines()
+                }
         }
     }
     

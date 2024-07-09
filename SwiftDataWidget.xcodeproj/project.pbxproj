@@ -18,9 +18,11 @@
 		810F5ED92C3C85FC001AD056 /* ThingWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5ED82C3C85FC001AD056 /* ThingWidgetBundle.swift */; };
 		810F5EDB2C3C85FC001AD056 /* ThingWidgetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EDA2C3C85FC001AD056 /* ThingWidgetControl.swift */; };
 		810F5EDD2C3C85FC001AD056 /* ThingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EDC2C3C85FC001AD056 /* ThingWidget.swift */; };
-		810F5EDF2C3C85FC001AD056 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EDE2C3C85FC001AD056 /* AppIntent.swift */; };
+		810F5EDF2C3C85FC001AD056 /* CountIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EDE2C3C85FC001AD056 /* CountIntent.swift */; };
 		810F5EE12C3C85FD001AD056 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 810F5EE02C3C85FD001AD056 /* Assets.xcassets */; };
 		810F5EE52C3C85FD001AD056 /* ThingWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 810F5ED12C3C85FC001AD056 /* ThingWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		813D16DF2C3C9181005E58A1 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EC92C3C78C3001AD056 /* Thing.swift */; };
+		813D16E02C3C92F6005E58A1 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5ECB2C3C8371001AD056 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +63,7 @@
 		810F5ED82C3C85FC001AD056 /* ThingWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingWidgetBundle.swift; sourceTree = "<group>"; };
 		810F5EDA2C3C85FC001AD056 /* ThingWidgetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingWidgetControl.swift; sourceTree = "<group>"; };
 		810F5EDC2C3C85FC001AD056 /* ThingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingWidget.swift; sourceTree = "<group>"; };
-		810F5EDE2C3C85FC001AD056 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		810F5EDE2C3C85FC001AD056 /* CountIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountIntent.swift; sourceTree = "<group>"; };
 		810F5EE02C3C85FD001AD056 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		810F5EE22C3C85FD001AD056 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		810F5EEA2C3C862E001AD056 /* SwiftDataWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDataWidget.entitlements; sourceTree = "<group>"; };
@@ -145,7 +147,7 @@
 				810F5ED82C3C85FC001AD056 /* ThingWidgetBundle.swift */,
 				810F5EDA2C3C85FC001AD056 /* ThingWidgetControl.swift */,
 				810F5EDC2C3C85FC001AD056 /* ThingWidget.swift */,
-				810F5EDE2C3C85FC001AD056 /* AppIntent.swift */,
+				810F5EDE2C3C85FC001AD056 /* CountIntent.swift */,
 				810F5EE02C3C85FD001AD056 /* Assets.xcassets */,
 				810F5EE22C3C85FD001AD056 /* Info.plist */,
 			);
@@ -265,9 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				810F5EDB2C3C85FC001AD056 /* ThingWidgetControl.swift in Sources */,
-				810F5EDF2C3C85FC001AD056 /* AppIntent.swift in Sources */,
+				810F5EDF2C3C85FC001AD056 /* CountIntent.swift in Sources */,
 				810F5ED92C3C85FC001AD056 /* ThingWidgetBundle.swift in Sources */,
+				813D16DF2C3C9181005E58A1 /* Thing.swift in Sources */,
 				810F5EDD2C3C85FC001AD056 /* ThingWidget.swift in Sources */,
+				813D16E02C3C92F6005E58A1 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +429,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = codefruit.SwiftDataWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,6 +462,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = codefruit.SwiftDataWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
