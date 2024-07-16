@@ -42,6 +42,7 @@ struct CountIntent: AppIntent {
                 ControlCenter.shared.reloadControls(
                     ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"
                 )
+                WidgetCenter.shared.reloadAllTimelines()
             }
             try modelContext.save()
         } catch {
