@@ -25,25 +25,6 @@ struct ContentView: View {
             VStack {
                 ForEach(things) { thing in
                     HStack {
-                        // Minus Button
-                        Button(action: {
-                            withAnimation {
-                                if thing.count >= 1 {
-                                    thing.count -= 1
-                                    WidgetCenter.shared.reloadAllTimelines()
-                                    ControlCenter.shared.reloadControls(
-                                        ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"
-                                    )
-                                }
-                            }
-                        }, label: {
-                            Image(systemName: "minus")
-                                .font(.title.bold())
-                                .frame(width: 35, height: 35)
-                                .foregroundStyle(Color.pink)
-                        })
-                        .buttonRepeatBehavior(.enabled)
-                        
                         Text("\(thing.count)")
                             .font(.system(.title).bold())
                             .frame(width: 45, height: 45)
