@@ -23,9 +23,6 @@
 		813D16DF2C3C9181005E58A1 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5EC92C3C78C3001AD056 /* Thing.swift */; };
 		813D16E02C3C92F6005E58A1 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810F5ECB2C3C8371001AD056 /* DataModel.swift */; };
 		8182EE992C3DB2A400623043 /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182EE982C3DB29E00623043 /* PreviewSampleData.swift */; };
-		8182EE9D2C3DB6A900623043 /* ThingWidgetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8182EE9C2C3DB6A900623043 /* ThingWidgetControl.swift */; };
-		81FE4B232C3CDBD80085360E /* MinusIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4B222C3CDBD80085360E /* MinusIntent.swift */; };
-		81FE4B242C3CDBD80085360E /* MinusIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE4B222C3CDBD80085360E /* MinusIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +68,6 @@
 		810F5EEA2C3C862E001AD056 /* SwiftDataWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDataWidget.entitlements; sourceTree = "<group>"; };
 		810F5EEB2C3C864E001AD056 /* ThingWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThingWidgetExtension.entitlements; sourceTree = SOURCE_ROOT; };
 		8182EE982C3DB29E00623043 /* PreviewSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSampleData.swift; sourceTree = "<group>"; };
-		8182EE9C2C3DB6A900623043 /* ThingWidgetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingWidgetControl.swift; sourceTree = "<group>"; };
-		81FE4B222C3CDBD80085360E /* MinusIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinusIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,11 +115,10 @@
 				810F5EEA2C3C862E001AD056 /* SwiftDataWidget.entitlements */,
 				810F5EBB2C3C4F8C001AD056 /* SwiftDataWidgetApp.swift */,
 				810F5EBD2C3C4F8C001AD056 /* ContentView.swift */,
-				8182EE982C3DB29E00623043 /* PreviewSampleData.swift */,
 				810F5ECB2C3C8371001AD056 /* DataModel.swift */,
+				810F5EC92C3C78C3001AD056 /* Thing.swift */,
 				810F5EBF2C3C4F8D001AD056 /* Assets.xcassets */,
 				810F5EC12C3C4F8D001AD056 /* Preview Content */,
-				810F5EC92C3C78C3001AD056 /* Thing.swift */,
 			);
 			path = SwiftDataWidget;
 			sourceTree = "<group>";
@@ -133,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				810F5EC22C3C4F8D001AD056 /* Preview Assets.xcassets */,
+				8182EE982C3DB29E00623043 /* PreviewSampleData.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -151,10 +146,8 @@
 			children = (
 				810F5EEB2C3C864E001AD056 /* ThingWidgetExtension.entitlements */,
 				810F5ED82C3C85FC001AD056 /* ThingWidgetBundle.swift */,
-				8182EE9C2C3DB6A900623043 /* ThingWidgetControl.swift */,
 				810F5EDC2C3C85FC001AD056 /* ThingWidget.swift */,
 				810F5EDE2C3C85FC001AD056 /* CountIntent.swift */,
-				81FE4B222C3CDBD80085360E /* MinusIntent.swift */,
 				810F5EE02C3C85FD001AD056 /* Assets.xcassets */,
 				810F5EE22C3C85FD001AD056 /* Info.plist */,
 			);
@@ -267,7 +260,6 @@
 				8182EE992C3DB2A400623043 /* PreviewSampleData.swift in Sources */,
 				810F5ECA2C3C78C3001AD056 /* Thing.swift in Sources */,
 				810F5EBC2C3C4F8C001AD056 /* SwiftDataWidgetApp.swift in Sources */,
-				81FE4B242C3CDBD80085360E /* MinusIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,13 +267,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81FE4B232C3CDBD80085360E /* MinusIntent.swift in Sources */,
 				810F5EDF2C3C85FC001AD056 /* CountIntent.swift in Sources */,
 				810F5ED92C3C85FC001AD056 /* ThingWidgetBundle.swift in Sources */,
 				813D16DF2C3C9181005E58A1 /* Thing.swift in Sources */,
 				810F5EDD2C3C85FC001AD056 /* ThingWidget.swift in Sources */,
 				813D16E02C3C92F6005E58A1 /* DataModel.swift in Sources */,
-				8182EE9D2C3DB6A900623043 /* ThingWidgetControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

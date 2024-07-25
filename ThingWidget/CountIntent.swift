@@ -37,7 +37,7 @@ struct CountIntent: AppIntent {
             return .result()
         }
         do {
-            if thing.count < 50 {
+            if thing.count < 100 {
                 thing.count += 1
                 ControlCenter.shared.reloadControls(
                     ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"

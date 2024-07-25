@@ -12,6 +12,5 @@ import SwiftUI
 struct ThingWidgetBundle: WidgetBundle {
     var body: some Widget {
         ThingWidget()
-        ThingWidgetControl()
     }
 }
