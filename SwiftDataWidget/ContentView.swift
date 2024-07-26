@@ -16,22 +16,13 @@ struct ContentView: View {
     @State private var updatedThings: [PersistentIdentifier] = []
     
     var body: some View {
-        
-        var linearGradient: LinearGradient {
-            LinearGradient(colors: [.clear, .primary.opacity(0.3), .clear], startPoint: .topLeading, endPoint: .bottomTrailing)
-        }
-        
         NavigationStack {
             VStack {
                 ForEach(things) { thing in
                     HStack {
                         Text("\(thing.count)")
                             .font(.system(.title).bold())
-                            .frame(width: 45, height: 45)
                             .contentTransition(.numericText())
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10).strokeBorder(linearGradient).fill(.secondary.opacity(0.15))
-                            )
                         
                         // Plus Button
                         Button(action: {
@@ -42,9 +33,9 @@ struct ContentView: View {
                                 }
                             }
                         }, label: {
-                            Image(systemName: "plus")
+                            Image(systemName: "plus.circle.fill")
+                                .symbolRenderingMode(.hierarchical)
                                 .font(.title.bold())
-                                .frame(width: 35, height: 35)
                                 .foregroundStyle(Color.accentColor)
                         })
                         .buttonRepeatBehavior(.enabled)
@@ -66,9 +57,6 @@ struct ContentView: View {
             }
             .onChange(of: phase) {
                 WidgetCenter.shared.reloadAllTimelines()
-                ControlCenter.shared.reloadControls(
-                    ofKind: "codefruit.SwiftDataWidget.ThingWidgetControl"
-                )
             }
             .onChange(of: phase) { _, newValue in
                 Task {

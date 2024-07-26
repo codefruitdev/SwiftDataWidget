@@ -76,10 +76,6 @@ struct SimpleEntry: TimelineEntry {
 
 struct ThingWidgetEntryView : View {
     var entry: Provider.Entry
-    
-    var linearGradient: LinearGradient {
-        LinearGradient(colors: [.clear, .primary.opacity(0.3), .clear], startPoint: .topLeading, endPoint: .bottomTrailing)
-    }
 
     var body: some View {
         HStack {
@@ -87,15 +83,12 @@ struct ThingWidgetEntryView : View {
                 .font(.system(.title).bold())
                 .frame(width: 45, height: 45)
                 .contentTransition(.numericText())
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10).strokeBorder(linearGradient).fill(.secondary.opacity(0.15))
-                )
             
             // Plus Button
             Button(intent: CountIntent(count: entry.count)) {
                 Image(systemName: "plus")
                     .font(.title.bold())
-                    .frame(width: 15, height: 15)
+                    .frame(width: 15, height: 25)
                     .foregroundStyle(Color.accentColor)
             }
             .buttonRepeatBehavior(.enabled)
